@@ -1,4 +1,5 @@
-FROM php:7.1-apache
+ARG BASE_IMAGE=php:7.1-apache
+FROM ${BASE_IMAGE}
 MAINTAINER Kang Ki Tae <kt.kang@ridi.com>
 
 RUN docker-php-source extract \
