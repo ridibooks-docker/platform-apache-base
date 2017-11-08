@@ -5,7 +5,8 @@ RUN docker-php-source extract \
 
 # Install common
 && apt-get update \
-&& apt-get install wget software-properties-common vim git mysql-client zlib1g-dev libmcrypt-dev libldap2-dev -y \
+&& apt-get install -y --no-install-recommends \
+  wget software-properties-common vim git mysql-client zlib1g-dev libmcrypt-dev libldap2-dev \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install ldap pdo zip pdo_mysql \
 
