@@ -49,6 +49,7 @@ ENV APACHE_DOC_ROOT /var/www/html
 # Enable apache mod and add php info page.
 RUN a2enmod rewrite
 ADD ./index.php /var/www/html/index.php
+ADD ./health.php /var/www/html/health.php
 
 # Change entrypoint
 ADD ./docker-entrypoint.sh /
