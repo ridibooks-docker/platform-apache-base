@@ -18,7 +18,7 @@ a2enconf "document-root-directory.conf"
 PHP_INI_PATH=/usr/local/etc/php/conf.d
 XDEBUG_DISABLED=$PHP_INI_PATH/99-xdebug.ini.disabled
 XDEBUG_ENABLED=$PHP_INI_PATH/99-xdebug.ini
-XDEBUG_REMOVE_HOST=$PHP_INI_PATH/xdebug_remote_host.ini
+XDEBUG_REMOTE_HOST=$PHP_INI_PATH/xdebug_remote_host.ini
 
 # Enable XDebug if needed
 if [ "$XDEBUG_ENABLE" = "1" ]; then
@@ -27,16 +27,16 @@ if [ "$XDEBUG_ENABLE" = "1" ]; then
     fi;
     # Configure XDebug remote host
     if [ -z "$XDEBUG_HOST" ]; then
-        # Allows to set HOST_IP by env variable because could be different from the one which come from ip route command
-        HOST_IP=$(/sbin/ip route|awk '/default/ { print $3 }')
+        # Allows to set XDEBUG_HOST by env variable because could be different from the one which come from ip route command
+        XDEBUG_HOST=$(/sbin/ip route|awk '/default/ { print $3 }')
     fi;
-    echo "xdebug.remote_host=$HOST_IP" > $XDEBUG_REMOVE_HOST
+    echo "xdebug.remote_host=$XDEBUG_HOST" > $XDEBUG_REMOTE_HOST
 else
     if [ -f "$XDEBUG_ENABLED" ]; then
         mv $XDEBUG_ENABLED $XDEBUG_DISABLED
     fi;
-    if [ -f "$XDEBUG_REMOVE_HOST" ]; then
-      rm $XDEBUG_REMOVE_HOST
+    if [ -f "$XDEBUG_REMOTE_HOST" ]; then
+      rm $XDEBUG_REMOTE_HOST
     fi;
 fi;
 
