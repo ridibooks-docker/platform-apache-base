@@ -2,11 +2,8 @@ ARG BASE_IMAGE=php:7.1-apache
 FROM ${BASE_IMAGE}
 MAINTAINER Kang Ki Tae <kt.kang@ridi.com>
 
-# Change package repositories
-RUN sed -i 's/deb.debian.org/ftp.daumkakao.com/g' /etc/apt/sources.list \
-
 # Install common
-&& docker-php-source extract \
+RUN docker-php-source extract \
 && apt-get update \
 && apt-get install -y --no-install-recommends \
   wget software-properties-common vim git mysql-client zlib1g-dev libmcrypt-dev libldap2-dev \
