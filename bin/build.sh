@@ -6,7 +6,7 @@ if [ -z "${PHP_VERSION}" ]; then
     PHP_VERSION=7.1
 fi
 
-BASE_IMAGE="php:${PHP_VERSION}"
+BASE_IMAGE="php:${PHP_VERSION}-apache"
 
 echo "=> Building start with args"
 echo "BASE_IMAGE=${BASE_IMAGE}"
