@@ -6,7 +6,7 @@ MAINTAINER Kang Ki Tae <kt.kang@ridi.com>
 RUN docker-php-source extract \
 && apt-get update \
 && apt-get install -y --no-install-recommends \
-  wget gnupg software-properties-common vim git mysql-client zlib1g-dev libmcrypt-dev libldap2-dev \
+  wget gnupg software-properties-common vim openssh-client git mysql-client zlib1g-dev libmcrypt-dev libldap2-dev \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install ldap pdo zip pdo_mysql \
 
