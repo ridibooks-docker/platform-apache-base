@@ -10,16 +10,6 @@ RUN docker-php-source extract \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install ldap pdo zip pdo_mysql \
 
-# Install couchbase php extention
-&& wget http://packages.couchbase.com/ubuntu/couchbase.key \
-&& apt-key add couchbase.key \
-&& rm couchbase.key  \
-&& add-apt-repository 'deb http://packages.couchbase.com/ubuntu trusty trusty/main' \
-&& apt-get update \
-&& apt-get install -y build-essential libcouchbase2-core libcouchbase-dev libcouchbase2-bin libcouchbase2-libevent \
-&& pecl install couchbase-2.2.3 \
-&& docker-php-ext-enable couchbase \
-
 # Install xdebug php extention
 && pecl config-set preferred_state beta \
 && pecl install -o -f xdebug \
@@ -29,12 +19,6 @@ RUN docker-php-source extract \
 # Install node
 && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 && apt-get install nodejs -y \
-
-# Install yarn
-&& curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-&& echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-&& apt-get update \
-&& apt-get install yarn -y \
 
 # Install bower
 && npm install -g bower \

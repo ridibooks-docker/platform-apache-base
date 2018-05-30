@@ -12,6 +12,7 @@ services:
 env:
   - PHP_VERSION=7.0
   - PHP_VERSION=7.1
+  - PHP_VERSION=7.2
 
 script:
   - bin/build.sh
