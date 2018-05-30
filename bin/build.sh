@@ -13,6 +13,6 @@ echo "BASE_IMAGE=${BASE_IMAGE}"
 
 docker build \
   --build-arg BASE_IMAGE=${BASE_IMAGE} \
-  -t ridibooks/performance-apache-base:${PHP_VERSION} .
+  -t ridibooks/platform-apache-base:${PHP_VERSION} .
 
-docker tag ridibooks/performance-apache-base:${PHP_VERSION} ridibooks/performance-apache-base:latest
+docker tag ridibooks/platform-apache-base:${PHP_VERSION} ridibooks/platform-apache-base:latest
