@@ -1,6 +1,7 @@
 Base Apache Docker Container for RIDI Platform team
 ========================================================
 
+[![Build Status](https://travis-ci.org/ridibooks-docker/platform-apache-base.svg?branch=master)](https://travis-ci.org/ridibooks-docker/platform-apache-base)
 [![](https://images.microbadger.com/badges/version/ridibooks/platform-apache-base.svg)](http://microbadger.com/images/ridibooks/platform-apache-base "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/image/ridibooks/platform-apache-base.svg)](http://microbadger.com/images/ridibooks/platform-apache-base "Get your own version badge on microbadger.com")
 
