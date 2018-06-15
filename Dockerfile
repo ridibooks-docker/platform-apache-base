@@ -16,16 +16,17 @@ RUN docker-php-source extract \
 && rm -rf /tmp/pear \
 && pecl config-set preferred_state stable \
 
-# Install node
+# Install node and bower
 && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 && apt-get install nodejs -y \
-
-# Install bower
 && npm install -g bower \
+&& rm -rf /root/.npm/cache/* \
 
-# Install composer
+# Install composer and prestissimo
 && curl -sS https://getcomposer.org/installer | php \
 && mv composer.phar /usr/bin/composer \
+&& composer global require hirak/prestissimo \
+&& rm -rf /root/.composer/cache/* \
 
 # Clean package files
 && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
@@ -39,7 +40,7 @@ ENV XDEBUG_ENABLE 0
 ENV PHP_TIMEZONE Asia/Seoul
 ENV APACHE_DOC_ROOT /var/www/html
 
-# Enable apache mod and add php info page.
+# Enable apache mods and add php info page.
 RUN a2enmod rewrite ssl
 ADD ./index.php /var/www/html/index.php
 ADD ./health.php /var/www/html/health.php
