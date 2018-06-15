@@ -40,7 +40,7 @@ ENV PHP_TIMEZONE Asia/Seoul
 ENV APACHE_DOC_ROOT /var/www/html
 
 # Enable apache mod and add php info page.
-RUN a2enmod rewrite
+RUN a2enmod rewrite ssl
 ADD ./index.php /var/www/html/index.php
 ADD ./health.php /var/www/html/health.php
 
