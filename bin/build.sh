@@ -6,13 +6,18 @@ if [ -z "${PHP_VERSION}" ]; then
     PHP_VERSION=7.1
 fi
 
-BASE_IMAGE="php:${PHP_VERSION}-apache"
+if [ -z "${DEBIAN_RELEASE}" ]; then
+    DEBIAN_RELEASE=stretch
+fi
+
+TAG="${PHP_VERSION}-apache-${DEBIAN_RELEASE}"
+BASE_IMAGE="php:${TAG}"
 
 echo "=> Building start with args"
 echo "BASE_IMAGE=${BASE_IMAGE}"
 
 docker build \
   --build-arg BASE_IMAGE=${BASE_IMAGE} \
-  -t ridibooks/platform-apache-base:${PHP_VERSION} .
+  -t ridibooks/platform-apache-base:${TAG} .
 
-docker tag ridibooks/platform-apache-base:${PHP_VERSION} ridibooks/platform-apache-base:latest
+docker tag ridibooks/platform-apache-base:${TAG} ridibooks/platform-apache-base:latest

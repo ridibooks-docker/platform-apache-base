@@ -10,9 +10,12 @@ services:
   - docker
 
 env:
-  - PHP_VERSION=7.0
-  - PHP_VERSION=7.1
-  - PHP_VERSION=7.2
+  - PHP_VERSION=7.0 DEBIAN_RELEASE=stretch
+  - PHP_VERSION=7.1 DEBIAN_RELEASE=stretch
+  - PHP_VERSION=7.2 DEBIAN_RELEASE=stretch
+  - PHP_VERSION=7.0 DEBIAN_RELEASE=jessie
+  - PHP_VERSION=7.1 DEBIAN_RELEASE=jessie
+  - PHP_VERSION=7.2 DEBIAN_RELEASE=jessie
 
 script:
   - bin/build.sh
