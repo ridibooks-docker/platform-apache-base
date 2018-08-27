@@ -20,7 +20,9 @@ RUN docker-php-source extract \
 && docker-php-source delete \
 
 # Install XDebug php extention
-&& pecl install xdebug \
+&& pecl config-set preferred_state beta \
+&& pecl install -of xdebug \
+&& pecl config-set preferred_state stable \
 && rm -rf /tmp/pear \
 
 # Install Node
