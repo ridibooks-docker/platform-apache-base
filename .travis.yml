@@ -22,7 +22,6 @@ env:
   - PHP_VERSION=7.2 DEBIAN_RELEASE=stretch DOCKER_TAG_POSTFIX=php72-stretch
   - PHP_VERSION=7.0 DEBIAN_RELEASE=jessie DOCKER_TAG_POSTFIX=php70-jessie
   - PHP_VERSION=7.1 DEBIAN_RELEASE=jessie DOCKER_TAG_POSTFIX=php71-jessie
-  - PHP_VERSION=7.2 DEBIAN_RELEASE=jessie DOCKER_TAG_POSTFIX=php72-jessie
 
 script:
   - bin/build.sh latest
