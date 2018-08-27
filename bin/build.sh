@@ -2,22 +2,29 @@
 
 set -e
 
-if [ -z "${PHP_VERSION}" ]; then
-    PHP_VERSION=7.1
-fi
+DOCKER_TAG=${1}
+BASE_IMAGE=php:${PHP_VERSION:-7.1}-apache-${DEBIAN_RELEASE:-stretch}
 
-if [ -z "${DEBIAN_RELEASE}" ]; then
-    DEBIAN_RELEASE=stretch
-fi
+function print_usage
+{
+    echo
+    echo "Usage: build.sh <DOCKER_TAG>"
+    echo
+    echo "Example:"
+    echo "  build.sh latest"
+}
 
-TAG="${PHP_VERSION}-apache-${DEBIAN_RELEASE}"
-BASE_IMAGE="php:${TAG}"
+if [[ -z "${DOCKER_TAG}" ]]
+then
+    echo "No DOCKER_TAG specified."
+    print_usage
+    exit 1
+fi
 
 echo "=> Building start with args"
 echo "BASE_IMAGE=${BASE_IMAGE}"
 
-docker build \
-  --build-arg BASE_IMAGE=${BASE_IMAGE} \
-  -t ridibooks/platform-apache-base:${PHP_VERSION}-${DEBIAN_RELEASE} .
-
-docker tag ridibooks/platform-apache-base:${PHP_VERSION}-${DEBIAN_RELEASE} ridibooks/platform-apache-base:latest
+echo "Build a image - platform-apache-base:${DOCKER_TAG}"
+docker build --pull \
+    --build-arg "BASE_IMAGE=${BASE_IMAGE}" \
+    -t "platform-apache-base:${DOCKER_TAG}" .

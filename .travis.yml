@@ -1,22 +1,36 @@
-sudo: required
-
+os: linux
+sudo: false
+dist: trusty
 language: generic
 
-branches:
-  only:
-  - master
+before_install:
+  # Docker latest
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
 
-services:
-  - docker
+  # Docker Compose 1.21.1
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/1.21.1/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 env:
-  - PHP_VERSION=7.0 DEBIAN_RELEASE=stretch
-  - PHP_VERSION=7.1 DEBIAN_RELEASE=stretch
-  - PHP_VERSION=7.2 DEBIAN_RELEASE=stretch
-  - PHP_VERSION=7.0 DEBIAN_RELEASE=jessie
-  - PHP_VERSION=7.1 DEBIAN_RELEASE=jessie
-  - PHP_VERSION=7.2 DEBIAN_RELEASE=jessie
+  - PHP_VERSION=7.0 DEBIAN_RELEASE=stretch DOCKER_TAG_POSTFIX=php70-stretch
+  - PHP_VERSION=7.1 DEBIAN_RELEASE=stretch DOCKER_TAG_POSTFIX=php71-stretch
+  - PHP_VERSION=7.2 DEBIAN_RELEASE=stretch DOCKER_TAG_POSTFIX=php72-stretch
+  - PHP_VERSION=7.0 DEBIAN_RELEASE=jessie DOCKER_TAG_POSTFIX=php70-jessie
+  - PHP_VERSION=7.1 DEBIAN_RELEASE=jessie DOCKER_TAG_POSTFIX=php71-jessie
+  - PHP_VERSION=7.2 DEBIAN_RELEASE=jessie DOCKER_TAG_POSTFIX=php72-jessie
 
 script:
-  - bin/build.sh
-  - bin/push.sh
+  - bin/build.sh latest
+  - bin/test.sh
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: bin/push.sh ridibooks/platform-apache-base ${TRAVIS_TAG}-${DOCKER_TAG_POSTFIX}
+    on:
+      tags: true

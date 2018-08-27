@@ -1,38 +1,40 @@
-ARG BASE_IMAGE=php:7.1-apache
+ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
-MAINTAINER Kang Ki Tae <kt.kang@ridi.com>
 
 # Install common
 RUN docker-php-source extract \
-&& apt-get update \
-&& apt-get install -y --no-install-recommends \
-  wget gnupg software-properties-common vim openssh-client git mysql-client zlib1g-dev libmcrypt-dev libldap2-dev \
-&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
-&& docker-php-ext-install ldap pdo zip pdo_mysql \
+&& apt-get update && apt-get install -y --no-install-recommends \
+    iproute2 \
+    libmcrypt-dev \
+    mysql-client \
+    openssh-client \
+    git \
+    gnupg \
+    vim \
+    zlib1g-dev \
+&& docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    zip \
+&& apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
+&& docker-php-source delete \
 
-# Install xdebug php extention
-&& pecl config-set preferred_state beta \
-&& pecl install -o -f xdebug \
+# Install XDebug php extention
+&& pecl install xdebug \
 && rm -rf /tmp/pear \
-&& pecl config-set preferred_state stable \
 
-# Install node and bower
-&& curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-&& apt-get install nodejs -y \
-&& npm install -g bower \
+# Install Node
+&& curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+&& apt-get install nodejs -y --no-install-recommends \
 && rm -rf /root/.npm/cache/* \
 
-# Install composer and prestissimo
+# Install Composer and Prestissimo
 && curl -sS https://getcomposer.org/installer | php \
 && mv composer.phar /usr/bin/composer \
 && composer global require hirak/prestissimo \
-&& rm -rf /root/.composer/cache/* \
+&& rm -rf /root/.composer/cache/*
 
-# Clean package files
-&& apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
-&& docker-php-source delete
-
-# Additional php ini configurations
+# Additional PHP ini configurations
 ADD ./php/*.ini* /usr/local/etc/php/conf.d/
 
 # Define env variables
@@ -40,7 +42,7 @@ ENV XDEBUG_ENABLE 0
 ENV PHP_TIMEZONE Asia/Seoul
 ENV APACHE_DOC_ROOT /var/www/html
 
-# Enable apache mods and add php info page.
+# Enable Apache mods and add PHP info page.
 RUN a2enmod rewrite ssl
 ADD ./index.php /var/www/html/index.php
 ADD ./health.php /var/www/html/health.php

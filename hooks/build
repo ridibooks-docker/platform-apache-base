@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-PHP_VERSION=${CACHE_TAG} bin/build.sh
