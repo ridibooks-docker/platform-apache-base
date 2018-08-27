@@ -21,23 +21,20 @@ XDEBUG_ENABLED=$PHP_INI_PATH/99-xdebug.ini
 XDEBUG_REMOTE_HOST=$PHP_INI_PATH/xdebug_remote_host.ini
 
 # Enable XDebug if needed
-if [ "$XDEBUG_ENABLE" = "1" ]; then
-    if [ -f "$XDEBUG_DISABLED" ]; then
-        mv $XDEBUG_DISABLED $XDEBUG_ENABLED
-    fi;
-    # Configure XDebug remote host
-    if [ -z "$XDEBUG_HOST" ]; then
-        # Allows to set XDEBUG_HOST by env variable because could be different from the one which come from ip route command
-        XDEBUG_HOST=$(/sbin/ip route|awk '/default/ { print $3 }')
-    fi;
-    echo "xdebug.remote_host=$XDEBUG_HOST" > $XDEBUG_REMOTE_HOST
-else
-    if [ -f "$XDEBUG_ENABLED" ]; then
-        mv $XDEBUG_ENABLED $XDEBUG_DISABLED
-    fi;
-    if [ -f "$XDEBUG_REMOTE_HOST" ]; then
-      rm $XDEBUG_REMOTE_HOST
-    fi;
-fi;
+PHP_INI_DIR=/usr/local/etc/php/conf.d
+PHP_XDEBUG_INI=${PHP_INI_DIR}/99-xdebug.ini
+PHP_XDEBUG_HOST=${XDEBUG_HOST:-$(/sbin/ip route|awk '/default/ { print $3 }')}
+PHP_EXTENSION_DIR=$(php-config --extension-dir)
+if [ "${XDEBUG_ENABLE}" == "1" ]
+then
+    cp ${PHP_XDEBUG_INI}.tmpl ${PHP_XDEBUG_INI}
+    sed -i "s|\$EXTENSION_DIR|${PHP_EXTENSION_DIR}|" ${PHP_XDEBUG_INI}
+
+    echo "Set XDebug remote host \"${PHP_XDEBUG_HOST}\""
+    sed -i "s|\$XDEBUG_REMOTE_HOST|${PHP_XDEBUG_HOST}|" ${PHP_XDEBUG_INI}
+elif [ -f "${PHP_XDEBUG_INI}" ]
+then
+    rm ${PHP_XDEBUG_INI}
+fi
 
 exec docker-php-entrypoint "$@"

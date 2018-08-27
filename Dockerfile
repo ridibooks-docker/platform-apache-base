@@ -37,7 +37,7 @@ RUN docker-php-source extract \
 && rm -rf /root/.composer/cache/*
 
 # Additional PHP ini configurations
-ADD ./php/*.ini* /usr/local/etc/php/conf.d/
+COPY ./php/* /usr/local/etc/php/conf.d/
 
 # Define env variables
 ENV XDEBUG_ENABLE 0
@@ -46,10 +46,10 @@ ENV APACHE_DOC_ROOT /var/www/html
 
 # Enable Apache mods and add PHP info page.
 RUN a2enmod rewrite ssl
-ADD ./index.php /var/www/html/index.php
-ADD ./health.php /var/www/html/health.php
+COPY ./index.php /var/www/html/index.php
+COPY ./health.php /var/www/html/health.php
 
 # Change entrypoint
-ADD ./docker-entrypoint.sh /
+COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
