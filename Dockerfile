@@ -9,7 +9,6 @@ RUN docker-php-source extract \
     mysql-client \
     openssh-client \
     git \
-    gnupg \
     vim \
     zlib1g-dev \
 && docker-php-ext-install \
@@ -24,11 +23,6 @@ RUN docker-php-source extract \
 && pecl install -of xdebug \
 && pecl config-set preferred_state stable \
 && rm -rf /tmp/pear \
-
-# Install Node
-&& curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-&& apt-get install nodejs -y --no-install-recommends \
-&& rm -rf /root/.npm/cache/* \
 
 # Install Composer and Prestissimo
 && curl -sS https://getcomposer.org/installer | php \

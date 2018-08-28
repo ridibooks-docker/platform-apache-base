@@ -19,11 +19,7 @@ function stop()
 
 function test_installed()
 {
-    TEST_CMD="php /test/PHPTest.php \
-    && composer --version >/dev/null 2>&1 \
-    && node --version 2>&1 | grep -Eq 'v10\.([0-9]+\.)+[0-9]+'"
-
-    docker exec -t apache-test bash -c "${TEST_CMD}"
+    docker exec -t apache-test bash -c "php /test/PHPTest.php && composer --version >/dev/null 2>&1"
 }
 
 function test_web()
