@@ -12,11 +12,13 @@ RUN docker-php-source extract \
     vim \
     zlib1g-dev \
     libpng-dev \
+    libicu-dev \
 && docker-php-ext-install \
     pdo \
     pdo_mysql \
     zip \
     gd \
+    intl \
 && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
 && docker-php-source delete \
 
