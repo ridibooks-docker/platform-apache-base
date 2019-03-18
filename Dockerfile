@@ -19,6 +19,7 @@ RUN docker-php-source extract \
     zip \
     gd \
     intl \
+    shmop \
 && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
 && docker-php-source delete \
 
