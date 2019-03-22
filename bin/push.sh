@@ -2,10 +2,9 @@
 set -e
 
 # Variables
-TARGET_IMAGE=platform-apache-base:latest
 DOCKER_REPO_URI=${1}
-DOCKER_TAG=${2:-$(git rev-parse --short HEAD)} # default = commit hash
-DOCKER_TAG_DEFAULT=latest
+DOCKER_TAG=${2}
+TARGET_IMAGE=platform-apache-base:${DOCKER_TAG}
 
 function print_usage
 {
@@ -13,19 +12,23 @@ function print_usage
     echo "Usage: push.sh <DOCKER_REPO_URI> <DOCKER_TAG>"
     echo
     echo "Example:"
-    echo "  push.sh ridibooks/platform-apache-base 1.0.2"
+    echo "  push.sh ridibooks/platform-apache-base 1.0.2-php72-stretch"
+    echo "  push.sh ridibooks/platform-apache-base 1.0-admin"
 }
 
 function push
 {
-    echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
+    if [[ -n "${DOCKER_USER}" && -n "${DOCKER_PASS}" ]]
+    then
+        echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
+    else
+        docker login
+    fi
 
-    echo "Tag ${TARGET_IMAGE} with ${DOCKER_REPO_URI}:${DOCKER_TAG_DEFAULT}, ${DOCKER_REPO_URI}:${DOCKER_TAG}"
-    docker tag "${TARGET_IMAGE}" "${DOCKER_REPO_URI}:${DOCKER_TAG_DEFAULT}"
+    echo "Tag ${TARGET_IMAGE} with ${DOCKER_REPO_URI}:${DOCKER_TAG}"
     docker tag "${TARGET_IMAGE}" "${DOCKER_REPO_URI}:${DOCKER_TAG}"
 
     echo "Push the image to ${DOCKER_REPO_URI}"
-    docker push "${DOCKER_REPO_URI}:${DOCKER_TAG_DEFAULT}"
     docker push "${DOCKER_REPO_URI}:${DOCKER_TAG}"
 }
 

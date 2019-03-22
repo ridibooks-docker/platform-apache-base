@@ -3,15 +3,19 @@
 set -e
 
 DOCKER_TAG=${1}
-BASE_IMAGE=php:${PHP_VERSION:-7.1}-apache-${DEBIAN_RELEASE:-stretch}
+PHP_VERSION=${2:-7.2}
+DEBIAN_RELEASE=${3:-stretch}
+BASE_IMAGE=php:${PHP_VERSION}-apache-${DEBIAN_RELEASE}
 
 function print_usage
 {
     echo
-    echo "Usage: build.sh <DOCKER_TAG>"
+    echo "Usage: build_root.sh <DOCKER_TAG> <PHP_VERSION> <DEBIAN_RELEASE>"
     echo
     echo "Example:"
-    echo "  build.sh latest"
+    echo "  build_root.sh 1.0-php72-stretch"
+    echo "  build_root.sh 1.0-php73-stretch 7.3"
+    echo "  build_root.sh 1.0-php71-jessie 7.1 jessie"
 }
 
 if [[ -z "${DOCKER_TAG}" ]]

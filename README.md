@@ -26,5 +26,5 @@ docker run -p 80:80 \
   -v $(pwd):/var/www/html \
   --name php-apache \
   -e XDEBUG_ENABLE=1 \
-  ridibooks/platform-apache-base
+  ridibooks/platform-apache-base:${tag_name}
 ```

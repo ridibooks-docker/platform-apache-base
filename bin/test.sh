@@ -2,6 +2,18 @@
 
 set -e
 
+DOCKER_TAG=${1}
+
+function print_usage
+{
+    echo
+    echo "Usage: test.sh <DOCKER_TAG>"
+    echo
+    echo "Example:"
+    echo "  test.sh 1.0-book-api"
+    echo "  test.sh 1.0-php72-stretch"
+}
+
 function start()
 {
     docker run -d --rm \
@@ -9,7 +21,7 @@ function start()
         -v $(pwd)/test:/test \
         -e XDEBUG_ENABLE=1 \
         -p 8000:80 \
-        platform-apache-base:latest >/dev/null 2>&1
+        "platform-apache-base:${DOCKER_TAG}" >/dev/null 2>&1
 }
 
 function stop()
@@ -27,7 +39,12 @@ function test_web()
     curl -sS localhost:8000/health.php | grep -Eq '^localhost$'
 }
 
-
+if [[ -z "${DOCKER_TAG}" ]]
+then
+    echo "No DOCKER_TAG specified."
+    print_usage
+    exit 1
+fi
 
 start
 

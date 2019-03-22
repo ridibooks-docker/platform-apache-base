@@ -1,6 +1,10 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
+RUN rm -rfv /var/lib/apt/lists/* \
+&& sed -i "s/http:\/\/deb.debian.org/http:\/\/ftp.daumkakao.com/" /etc/apt/sources.list \
+&& sed -i "s/http:\/\/security.debian.org/http:\/\/ftp.daumkakao.com/" /etc/apt/sources.list
+
 # Install common
 RUN docker-php-source extract \
 && apt-get update && apt-get install -y --no-install-recommends \
@@ -13,6 +17,8 @@ RUN docker-php-source extract \
     zlib1g-dev \
     libpng-dev \
     libicu-dev \
+    zip \
+    unzip \
 && docker-php-ext-install \
     pdo \
     pdo_mysql \
@@ -35,8 +41,14 @@ RUN docker-php-source extract \
 && composer global require hirak/prestissimo \
 && rm -rf /root/.composer/cache/*
 
+# Set Timezone
+RUN cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
 # Additional PHP ini configurations
 COPY ./php/* /usr/local/etc/php/conf.d/
+
+# Additional Apache configurations
+COPY ./apache/* /etc/apache2/conf-available/
 
 # Define env variables
 ENV XDEBUG_ENABLE 0

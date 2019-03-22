@@ -24,12 +24,12 @@ env:
   - PHP_VERSION=7.1 DEBIAN_RELEASE=jessie DOCKER_TAG_POSTFIX=php71-jessie
 
 script:
-  - bin/build.sh latest
-  - bin/test.sh
+  - bin/build_root.sh latest
+  - bin/test.sh latest
 
 deploy:
   - provider: script
     skip_cleanup: true
-    script: bin/push.sh ridibooks/platform-apache-base ${TRAVIS_TAG}-${DOCKER_TAG_POSTFIX}
+    script: bin/push.sh ridibooks/platform-apache-base ${TRAVIS_TAG}-${DOCKER_TAG_POSTFIX}-${DEBIAN_RELEASE}
     on:
       tags: true
