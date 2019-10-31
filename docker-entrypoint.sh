@@ -23,7 +23,7 @@ XDEBUG_REMOTE_HOST=$PHP_INI_PATH/xdebug_remote_host.ini
 # Enable XDebug if needed
 PHP_INI_DIR=/usr/local/etc/php/conf.d
 PHP_XDEBUG_INI=${PHP_INI_DIR}/99-xdebug.ini
-PHP_XDEBUG_HOST=${XDEBUG_HOST:-$(/sbin/ip route|awk '/default/ { print $3 }')}
+PHP_XDEBUG_HOST=${XDEBUG_HOST:-host.docker.internal}
 PHP_EXTENSION_DIR=$(php-config --extension-dir)
 if [ "${XDEBUG_ENABLE}" == "1" ]
 then
