@@ -48,7 +48,7 @@ RUN cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 COPY ./php/* /usr/local/etc/php/conf.d/
 
 # Additional Apache configurations
-COPY ./apache/* /etc/apache2/conf-available/
+COPY ./apache/conf-available/* /etc/apache2/conf-available/
 
 # Define env variables
 ENV XDEBUG_ENABLE 0
