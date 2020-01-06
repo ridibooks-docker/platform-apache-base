@@ -1,4 +1,4 @@
-FROM ridibooks/platform-apache-base:1.1.1-php72-stretch
+FROM ridibooks/platform-apache-base:1.0-php73-stretch
 
 # Require for openjdk-8-jre
 RUN mkdir -p /usr/share/man/man1

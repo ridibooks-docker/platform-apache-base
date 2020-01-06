@@ -1,4 +1,4 @@
-FROM ridibooks/platform-apache-base:1.1.1-php72-stretch
+FROM ridibooks/platform-apache-base:1.0-php73-stretch
 
 # Require for openjdk-8-jre
 RUN mkdir -p /usr/share/man/man1
@@ -23,6 +23,9 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     openjdk-8-jre \
     rsync \
     sudo \
+    locales \
+    tmux \
+    cron \
 && docker-php-ext-install \
     bcmath \
     gd \

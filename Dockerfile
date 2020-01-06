@@ -17,6 +17,7 @@ RUN docker-php-source extract \
     zlib1g-dev \
     libpng-dev \
     libicu-dev \
+    libzip-dev \
     zip \
     unzip \
 && docker-php-ext-install \

@@ -1,4 +1,7 @@
-FROM ridibooks/platform-apache-base:1.1.1-php72-stretch
+FROM ridibooks/platform-apache-base:1.0-php73-stretch
+
+# Require for openjdk-8-jre
+RUN mkdir -p /usr/share/man/man1
 
 # Install required programs
 RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
@@ -16,9 +19,14 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     openssl \
     poppler-utils \
     sudo \
+    locales \
+    tmux \
+    cron \
+    openjdk-8-jre \
 && docker-php-ext-install \
     gd \
     intl \
+    pcntl \
 && pecl install \
     igbinary \
     imagick \
