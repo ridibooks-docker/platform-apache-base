@@ -26,12 +26,14 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     locales \
     tmux \
     cron \
+    libgmp-dev \
 && docker-php-ext-install \
     bcmath \
     gd \
     intl \
     shmop \
     pcntl \
+    gmp \
 && pecl install \
     igbinary \
     imagick \

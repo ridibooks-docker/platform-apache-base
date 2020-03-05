@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     imagemagick \
     libmagickwand-dev \
     openssl \
+    libgmp-dev \
+&& docker-php-ext-install \
+    gmp \
 && pecl install \
     imagick \
 && docker-php-ext-enable \

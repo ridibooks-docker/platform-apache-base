@@ -23,10 +23,12 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     tmux \
     cron \
     openjdk-8-jre \
+    libgmp-dev \
 && docker-php-ext-install \
     gd \
     intl \
     pcntl \
+    gmp \
 && pecl install \
     igbinary \
     imagick \
