@@ -2,8 +2,8 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 RUN rm -rfv /var/lib/apt/lists/* \
-&& sed -i "s/http:\/\/deb.debian.org/http:\/\/ftp.daumkakao.com/" /etc/apt/sources.list \
-&& sed -i "s/http:\/\/security.debian.org/http:\/\/ftp.daumkakao.com/" /etc/apt/sources.list
+&& sed -i "s/http:\/\/deb.debian.org/http:\/\/ftp.harukasan.org/" /etc/apt/sources.list \
+&& sed -i "s/http:\/\/security.debian.org/http:\/\/ftp.harukasan.org/" /etc/apt/sources.list
 
 # Install common
 RUN docker-php-source extract \
