@@ -8,6 +8,7 @@ RUN rm -rfv /var/lib/apt/lists/* \
 # Install common
 RUN docker-php-source extract \
 && apt-get update && apt-get install -y --no-install-recommends \
+    apache2 \
     iproute2 \
     libmcrypt-dev \
     mysql-client \

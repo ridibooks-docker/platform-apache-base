@@ -3,7 +3,7 @@
 set -e
 
 DOCKER_TAG=${1}
-PHP_VERSION=${2:-7.2}
+PHP_VERSION=${2:-7.3}
 DEBIAN_RELEASE=${3:-stretch}
 BASE_IMAGE=php:${PHP_VERSION}-apache-${DEBIAN_RELEASE}
 
