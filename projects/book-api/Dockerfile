@@ -1,4 +1,4 @@
-FROM ridibooks/platform-apache-base:1.0-php73-stretch
+FROM ridibooks/platform-apache-base:1.0.1-php73-stretch
 
 RUN apt-get update \
 && apt-get install -y --no-install-recommends \
