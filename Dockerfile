@@ -28,6 +28,7 @@ RUN docker-php-source extract \
     gd \
     intl \
     shmop \
+    opcache \
 && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
 && docker-php-source delete \
 
