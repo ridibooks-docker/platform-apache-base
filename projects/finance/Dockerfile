@@ -1,4 +1,4 @@
-FROM ridibooks/platform-apache-base:1.0.2-php73-stretch
+FROM ridibooks/platform-apache-base:1.0-php74-buster
 
 # Install required programs
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -11,6 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pip \
     awscli \
 && pecl install \
-    mcrypt-1.0.2 \
+    mcrypt \
 && docker-php-ext-enable \
     mcrypt

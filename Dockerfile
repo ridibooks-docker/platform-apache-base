@@ -11,7 +11,7 @@ RUN docker-php-source extract \
     apache2 \
     iproute2 \
     libmcrypt-dev \
-    mysql-client \
+    mariadb-client \
     openssh-client \
     git \
     vim \

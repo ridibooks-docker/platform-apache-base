@@ -1,6 +1,6 @@
-FROM ridibooks/platform-apache-base:1.0.2-php73-stretch
+FROM ridibooks/platform-apache-base:1.0-php74-buster
 
-# Require for openjdk-8-jre
+# Require for openjdk-11-jre
 RUN mkdir -p /usr/share/man/man1
 
 # Install required programs
@@ -20,7 +20,7 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     python-setuptools \
     openssl \
     poppler-utils \
-    openjdk-8-jre \
+    openjdk-11-jre \
     rsync \
     sudo \
     locales \
@@ -37,7 +37,7 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
 && pecl install \
     igbinary \
     imagick \
-    mcrypt-1.0.2 \
+    mcrypt \
 && docker-php-ext-enable \
     igbinary \
     imagick \
