@@ -8,6 +8,7 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     build-essential \
     gifsicle \
     gnupg \
+    ghostscript \
     imagemagick \
     jpegoptim \
     optipng \
@@ -45,13 +46,5 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     setuptools \
     pip \
     awscli
-
-RUN cd /tmp \
- && curl -L https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/ghostscript-9.53.3.tar.gz | tar -xz \
- && cd ghostscript-9.53.3 \
- && ./configure \
- && make install \
- && cd .. \
- && rm -rf ghostscript-9.53.3
 
 RUN a2enmod proxy proxy_http
