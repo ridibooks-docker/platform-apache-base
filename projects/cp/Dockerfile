@@ -42,5 +42,7 @@ RUN cd /tmp \
  && cd ghostscript-9.53.3 \
  && ./configure \
  && make install \
+ && mkdir /usr/local/share/ghostscript/9.53.3/Resource \
+ && cp -r Resource/Font /usr/local/share/ghostscript/9.53.3/Resource/Font \
  && cd .. \
  && rm -rf ghostscript-9.53.3
