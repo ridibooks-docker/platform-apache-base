@@ -41,7 +41,6 @@ RUN docker-php-source extract \
 # Install Composer and Prestissimo
 && curl -sS https://getcomposer.org/installer | php \
 && mv composer.phar /usr/bin/composer \
-&& composer global require hirak/prestissimo \
 && rm -rf /root/.composer/cache/*
 
 # Set Timezone
