@@ -1,4 +1,4 @@
-FROM ridibooks/platform-apache-base:1.0-php74-buster
+FROM ridibooks/platform-apache-base:1.1-php74-buster
 
 # Require for openjdk-11-jre
 RUN mkdir -p /usr/share/man/man1

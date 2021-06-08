@@ -1,4 +1,4 @@
-FROM ridibooks/platform-apache-base:1.0-php74-buster
+FROM ridibooks/platform-apache-base:1.1-php74-buster
 
 # Install required programs
 RUN apt-get update && apt-get install -y --no-install-recommends \
