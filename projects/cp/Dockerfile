@@ -46,3 +46,13 @@ RUN cd /tmp \
  && cp -r Resource/Font /usr/local/share/ghostscript/9.53.3/Resource/Font \
  && cd .. \
  && rm -rf ghostscript-9.53.3
+
+RUN cd / \
+ && curl -L https://github.com/edenhill/librdkafka/archive/refs/tags/v1.6.1.tar.gz | tar -xz \
+ && cd librdkafka-1.6.1 \
+ && ./configure --install-deps \
+ && make \
+ && make install \
+ && cd / \
+ && pecl install rdkafka-5.0.0 \
+ && docker-php-ext-enable rdkafka.so
