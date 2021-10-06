@@ -23,6 +23,7 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     cron \
     openjdk-11-jre \
     libgmp-dev \
+    libssl-dev \
 && docker-php-ext-install \
     gd \
     intl \
